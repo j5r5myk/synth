@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Synth</title>
+</head>
+
+<body>
+<button id="start1">play</button>
+<button id="stop1">stop</button>
+<button id="lowpass">lowpass</button>
+<button id="quiet">quiet</button>
+
+
+<p></p>
+volume: <input type="range" min="0" max="100" value="100" oninput="changevolume(this);" />
+pitch: <input type="range" min="0" max="2000" value="440" oninput="changepitch(this);" />
+filter frequency: <input type="range" min="0" max="2000" value="2090" oninput="changefilterfreq(this);" />
+filter resonance: <input type="range" min="0" max="200" value="0" oninput="changeFilterRes(this);" />
+
+
+<script>
+try {
+        context = new AudioContext();
+    }
+    catch(e) {
+        alert('Web Audio API is not supported in this browser. Use chrome or safari, maybe opera or firefox');
+    }
+
+document.getElementById("start1").addEventListener("click", start);
+document.getElementById("stop1").addEventListener("click", stop);
+document.getElementById("lowpass").addEventListener("click", lowpass);
+document.getElementById("quiet").addEventListener("click", quiet);
+
+init();
+
+function init() {
+    
+    oscillator = context.createOscillator();
+    gainNode = context.createGain();
+    filter = context.createBiquadFilter();
+    
+    oscillator.frequency.value = 220;
+    oscillator.type = "triangle";
+    filter.type = (typeof filter.type === 'string') ? 'lowpass' : 0; // LOWPASS
+    filter.frequency.value = 20000;
+    oscillator.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(context.destination);
+    
+}
+
+function start() {
+    gainNode.gain.value = 1;
+    oscillator.start(0);
+}
+
+function stop() {
+    gainNode.gain.value = 0.0;
+}
+
+function lowpass() {
+    filter.frequency.value = 500;    
+    
+}
+
+function quiet() {
+    gainNode.gain.value = 0.5;
+}
+
+
+
+changevolume = function(element) {
+  var volume = element.value;
+  var fraction = parseInt(element.value) / parseInt(element.max);
+  // Let's use an x*x curve (x-squared) since simple linear (x) does not
+  // sound as good.
+  gainNode.gain.value = fraction * fraction;
+};
+
+changewave = function(element) {
+    var wave = element.value;
+    oscillator.type=wave;
+    alert("called");
+}
+
+changepitch = function(element) {
+    var freq = element.value;
+    oscillator.frequency.value=freq;
+}
+
+changefilterfreq = function(element) {
+    var freq = element.value;
+    filter.frequency.value=freq;
+}
+
+changeFilterRes = function(element) {
+    var freq = element.value;
+    filter.Q.value=freq;
+}
+    
+</script>
+
+</body>
+
+
+</html>
