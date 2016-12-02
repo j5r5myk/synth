@@ -1,10 +1,9 @@
 $(document).ready(function() {
-    alert("javascript!")
     try {
         context = new AudioContext();
     }
     catch(e) {
-        alert('Web Audio API is not supported in this browser. Use chrome or safari, maybe opera or firefox');
+        alert('Web Audio API is not supported in this browser. Use up-to-date chrome, safari, firefox or opera');
     }
 
     document.getElementById("start1").addEventListener("click", start);
