@@ -14,7 +14,7 @@ $(document).ready(function() {
     init();
 
     function init() {
-         
+        /* 
         oscillator = context.createOscillator();
         gainNode = context.createGain();
         filter = context.createBiquadFilter();
@@ -32,17 +32,20 @@ $(document).ready(function() {
         modulator.gain.connect(carrier.osc.frequency);
         carrier.gain.gain.value = 0;
         carrier.gain.connect(context.destination);
+       */ 
+        oscillator = createOsc();
         
 
     }
 
     // TODO: use this in other functions
-    function osc() {
+    function createOsc() {
         osc = context.createOscillator();
-        oscGain = context.createGain();
         osc.type = "sawtooth";
-        gain.gain.value = 1;
         osc.frequency.value = 440;
+        osc.connect(context.destination);
+        
+        return osc;
     }
 
     function modulator (type, freq, gain) {
