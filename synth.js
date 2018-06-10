@@ -14,30 +14,13 @@ $(document).ready(function() {
     init();
 
     function init() {
-        /*         
-        oscillator = context.createOscillator();
-        gainNode = context.createGain();
-        filter = context.createBiquadFilter();
-    
-        oscillator.frequency.value = 220;
-        oscillator.type = "triangle";
-        filter.type = (typeof filter.type === 'string') ? 'lowpass' : 0; // LOWPASS
-        filter.frequency.value = 20000;
-        oscillator.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(context.destination);
-        */ 
-
         carrier = new carrier("sine", 440);
         modulator = new modulator("sine", 964, 300);
         modulator.gain.connect(carrier.osc.frequency);
         carrier.gain.gain.value = 0;
         carrier.gain.connect(context.destination);
-        
-
     }
-
-    // TODO: use this in other functions
+    
     function osc() {
         osc = context.createOscillator();
         oscGain = context.createGain();
@@ -68,8 +51,6 @@ $(document).ready(function() {
 
     function start() {
         carrier.gain.gain.value = 1;
-        // gainNode.gain.value = 1;
-        // oscillator.start(0);
     }
 
     function stop() {
@@ -112,6 +93,10 @@ $(document).ready(function() {
     changemodulator = function(element) {
         var modulatorFreq = element.value;
         modulator.osc.frequency.value=modulatorFreq;
+    }
+    changeFMGain = function(element) {
+        var FMGain = element.value;
+        modulator.gain.gain.value=FMGain;
     }
 
     changefilterfreq = function(element) {

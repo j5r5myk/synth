@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<p>This is a single FM oscillator</p>
+<h1>This is a single FM oscillator</h1>
 <button id="start">play</button>
 <button id="stop">stop</button>
 <button id="lowpass">lowpass</button>
@@ -18,7 +18,8 @@
 <p></p>
 volume: <input type="range" min="0" max="100" value="100" oninput="changevolume(this);" />
 carrier frequency: <input type="range" min="0" max="2000" value="440" oninput="changecarrier(this);" />
-modulator frequency: <input type="range" min="0" max="2000" value="440" oninput="changemodulator(this);" />
+modulator frequency: <input type="range" min="0" max="2000" value="964" oninput="changemodulator(this);" />
+FM amount: <input type="range" min="0" max="2000" value="300" oninput="changeFMGain(this);" />
 filter frequency: <input type="range" min="0" max="2000" value="2090" oninput="changefilterfreq(this);" />
 filter resonance: <input type="range" min="0" max="200" value="0" oninput="changeFilterRes(this);" />
 
