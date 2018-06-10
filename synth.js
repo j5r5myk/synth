@@ -6,15 +6,15 @@ $(document).ready(function() {
         alert('Web Audio API is not supported in this browser. Use up-to-date chrome, safari, firefox or opera');
     }
 
-    document.getElementById("start1").addEventListener("click", start);
-    document.getElementById("stop1").addEventListener("click", stop);
+    document.getElementById("start").addEventListener("click", start);
+    document.getElementById("stop").addEventListener("click", stop);
     document.getElementById("lowpass").addEventListener("click", lowpass);
     document.getElementById("quiet").addEventListener("click", quiet);
 
     init();
 
     function init() {
-         
+        /*         
         oscillator = context.createOscillator();
         gainNode = context.createGain();
         filter = context.createBiquadFilter();
@@ -26,8 +26,9 @@ $(document).ready(function() {
         oscillator.connect(filter);
         filter.connect(gainNode);
         gainNode.connect(context.destination);
-        
-        carrier = new carrier("sine", 441);
+        */ 
+
+        carrier = new carrier("sine", 440);
         modulator = new modulator("sine", 964, 300);
         modulator.gain.connect(carrier.osc.frequency);
         carrier.gain.gain.value = 0;
@@ -66,16 +67,13 @@ $(document).ready(function() {
 
 
     function start() {
-        gainNode.gain.value = 1;
-        oscillator.start(0);
-    }
-
-    function startFM() {
-        fm.gain.gain.value = 1;
+        carrier.gain.gain.value = 1;
+        // gainNode.gain.value = 1;
+        // oscillator.start(0);
     }
 
     function stop() {
-        gainNode.gain.value = 0.0;
+        carrier.gain.gain.value = 0.0;
     }
 
     function lowpass() {
@@ -104,6 +102,16 @@ $(document).ready(function() {
     changepitch = function(element) {
         var freq = element.value;
         oscillator.frequency.value=freq;
+    }
+    
+    changecarrier = function(element) {
+        var carrierFreq = element.value;
+        carrier.osc.frequency.value=carrierFreq;
+    }
+    
+    changemodulator = function(element) {
+        var modulatorFreq = element.value;
+        modulator.osc.frequency.value=modulatorFreq;
     }
 
     changefilterfreq = function(element) {
