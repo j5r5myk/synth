@@ -22,6 +22,7 @@ $(document).ready(function() {
         carrier.gain.gain.value = 0;
         carrier.gain.connect(context.destination);
         
+        modulator.osc.connect(analyser);
         visualize(); 
     }
 
