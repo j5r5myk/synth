@@ -8,9 +8,11 @@ $(document).ready(function() {
 
     document.getElementById("start").addEventListener("click", start);
     document.getElementById("stop").addEventListener("click", stop);
-    document.getElementById("lowpass").addEventListener("click", lowpass);
-    document.getElementById("quiet").addEventListener("click", quiet);
+//    document.getElementById("lowpass").addEventListener("click", lowpass);
 
+    var analyser = context.createAnalyser();
+    var canvas = document.querySelector('#visualizer');
+    var canvasCtx = canvas.getContext("2d");
     init();
 
     function init() {
@@ -19,8 +21,58 @@ $(document).ready(function() {
         modulator.gain.connect(carrier.osc.frequency);
         carrier.gain.gain.value = 0;
         carrier.gain.connect(context.destination);
+        
+        visualize(); 
     }
-    
+
+    // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
+    function visualize() {
+        WIDTH = canvas.width;
+        HEIGHT = canvas.height;
+      
+        analyser.fftSize = 2048;
+        var bufferLength = analyser.fftSize;
+        console.log(bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
+      
+        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+        
+        var draw = function() {
+            drawVisual = requestAnimationFrame(draw);
+
+            analyser.getByteTimeDomainData(dataArray);
+
+            canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+            canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+            canvasCtx.beginPath();
+
+            var sliceWidth = WIDTH * 1.0 / bufferLength;
+            var x = 0;
+
+            for(var i = 0; i < bufferLength; i++) {
+
+              var v = dataArray[i] / 128.0;
+              var y = v * HEIGHT/2;
+
+              if(i === 0) {
+                canvasCtx.moveTo(x, y);
+              } else {
+                canvasCtx.lineTo(x, y);
+              }
+
+              x += sliceWidth;
+            }
+
+            canvasCtx.lineTo(canvas.width, canvas.height/2);
+            canvasCtx.stroke();
+        };
+        draw(); 
+    }
+ 
     function osc() {
         osc = context.createOscillator();
         oscGain = context.createGain();
