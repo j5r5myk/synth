@@ -22,12 +22,12 @@ $(document).ready(function() {
         carrier.gain.gain.value = 0;
         carrier.gain.connect(context.destination);
         
-        modulator.osc.connect(analyser);
-        visualize(); 
+        carrier.osc.connect(analyser);
     }
 
     // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
     function visualize() {
+        console.log("Enter visualize");
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
       
@@ -39,7 +39,7 @@ $(document).ready(function() {
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         
         var draw = function() {
-            drawVisual = requestAnimationFrame(draw);
+            console.log("Enter draw");
 
             analyser.getByteTimeDomainData(dataArray);
 
@@ -51,8 +51,8 @@ $(document).ready(function() {
 
             canvasCtx.beginPath();
 
-            var sliceWidth = WIDTH * 1.0 / bufferLength;
             var x = 0;
+            var sliceWidth = WIDTH * 1.0 / bufferLength;
 
             for(var i = 0; i < bufferLength; i++) {
 
@@ -62,6 +62,8 @@ $(document).ready(function() {
               if(i === 0) {
                 canvasCtx.moveTo(x, y);
               } else {
+                //if (y == HEIGHT/2) 
+                 //   break;
                 canvasCtx.lineTo(x, y);
               }
 
@@ -71,7 +73,8 @@ $(document).ready(function() {
             canvasCtx.lineTo(canvas.width, canvas.height/2);
             canvasCtx.stroke();
         };
-        draw(); 
+        drawVisual = requestAnimationFrame(draw);
+        draw();
     }
  
     function osc() {
@@ -104,6 +107,7 @@ $(document).ready(function() {
 
     function start() {
         carrier.gain.gain.value = 1;
+        visualize();
     }
 
     function stop() {
@@ -131,6 +135,7 @@ $(document).ready(function() {
     changewave = function(element) {
         var wave = element.value;
         oscillator.type=wave;
+        visualizer();
     }
 
     changepitch = function(element) {
@@ -141,15 +146,18 @@ $(document).ready(function() {
     changecarrier = function(element) {
         var carrierFreq = element.value;
         carrier.osc.frequency.value=carrierFreq;
+        visualize();
     }
     
     changemodulator = function(element) {
         var modulatorFreq = element.value;
         modulator.osc.frequency.value=modulatorFreq;
+        visualize();
     }
     changeFMGain = function(element) {
         var FMGain = element.value;
         modulator.gain.gain.value=FMGain;
+        visualize();
     }
 
     changefilterfreq = function(element) {
