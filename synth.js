@@ -16,13 +16,20 @@ $(document).ready(function() {
     init();
 
     function init() {
-        carrier = new carrier("sine", 440);
-        modulator = new modulator("sine", 964, 300);
-        modulator.gain.connect(carrier.osc.frequency);
-        carrier.gain.gain.value = 0;
-        carrier.gain.connect(context.destination);
+        car = new carrier("sine", 440);
+        mod = new modulator("sine", 964, 300);
+        mod.gain.connect(car.osc.frequency);
+        car.gain.gain.value = 0;
+        car.gain.connect(context.destination);
+    
+        // oscillators just for visual
+        vCar = new carrier("sine", 440);
+        vMod = new modulator("sine", 964, 300);
+        vMod.gain.connect(vCar.osc.frequency);
+        vCar.gain.gain.value = 0;
         
-        carrier.osc.connect(analyser);
+        //carrier.osc.connect(analyser);
+        vCar.osc.connect(analyser);
     }
 
     // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
@@ -31,7 +38,7 @@ $(document).ready(function() {
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
       
-        analyser.fftSize = 2048;
+        analyser.fftSize = 256;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
         var dataArray = new Uint8Array(bufferLength);
@@ -106,24 +113,21 @@ $(document).ready(function() {
 
 
     function start() {
-        carrier.gain.gain.value = 1;
+        car.gain.gain.value = 1;
         visualize();
     }
 
     function stop() {
-        carrier.gain.gain.value = 0.0;
+        car.gain.gain.value = 0.0;
     }
 
     function lowpass() {
         filter.frequency.value = 500;    
-    
     }
 
     function quiet() {
         gainNode.gain.value = 0.5;
     }
-
-
 
     changevolume = function(element) {
         var volume = element.value;
@@ -145,18 +149,20 @@ $(document).ready(function() {
     
     changecarrier = function(element) {
         var carrierFreq = element.value;
-        carrier.osc.frequency.value=carrierFreq;
-        visualize();
+        car.osc.frequency.value=carrierFreq;
+        //visualize();
     }
     
     changemodulator = function(element) {
         var modulatorFreq = element.value;
-        modulator.osc.frequency.value=modulatorFreq;
+        mod.osc.frequency.value=modulatorFreq;
+        vMod.osc.frequency.value=modulatorFreq;
         visualize();
     }
     changeFMGain = function(element) {
         var FMGain = element.value;
-        modulator.gain.gain.value=FMGain;
+        mod.gain.gain.value=FMGain;
+        vMod.gain.gain.value=FMGain;
         visualize();
     }
 
