@@ -30,6 +30,7 @@ $(document).ready(function() {
         
         //carrier.osc.connect(analyser);
         vCar.osc.connect(analyser);
+        visualize();
     }
 
     // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
@@ -37,17 +38,17 @@ $(document).ready(function() {
         console.log("Enter visualize");
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
-      
-        analyser.fftSize = 256;
+        console.log("WIDTH: " + WIDTH);
+        analyser.fftSize = 512;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
-        var dataArray = new Uint8Array(bufferLength);
+        var dataArray = new Uint8Array(2*bufferLength);
       
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         
         var draw = function() {
             console.log("Enter draw");
-
+            //drawVisual = requestAnimationFrame(draw);
             analyser.getByteTimeDomainData(dataArray);
 
             canvasCtx.fillStyle = 'rgb(200, 200, 200)';
@@ -60,8 +61,21 @@ $(document).ready(function() {
 
             var x = 0;
             var sliceWidth = WIDTH * 1.0 / bufferLength;
-
-            for(var i = 0; i < bufferLength; i++) {
+            // start the drawing at y = 0
+            // find first 0
+            var firstZ = 0;
+            for (var i = 0; i < bufferLength; i++) {
+                if (dataArray[i] == WIDTH) { 
+                    firstZ = i;
+                    console.log("firstZ: " + firstZ);
+                    break;
+                }
+            }
+            // move array to start with 0
+            for (i = 0; i < bufferLength; i++) {
+                dataArray[i] = dataArray[i+firstZ];
+            }
+            for(i = 0; i < bufferLength; i++) {
 
               var v = dataArray[i] / 128.0;
               var y = v * HEIGHT/2;
@@ -118,7 +132,9 @@ $(document).ready(function() {
     }
 
     function stop() {
-        car.gain.gain.value = 0.0;
+        car.gain.gain.value = 0;
+        vCar.gain.gain.value = 0;
+        visualize();
     }
 
     function lowpass() {
