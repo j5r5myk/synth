@@ -39,10 +39,13 @@ $(document).ready(function() {
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
         console.log("WIDTH: " + WIDTH);
+	console.log("HEIGHT: " + HEIGHT);
         analyser.fftSize = 512;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
-        var dataArray = new Uint8Array(2*bufferLength);
+	// get 2* the data needed
+       // var dataArray = new Uint8Array(2*bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
       
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         
@@ -61,11 +64,12 @@ $(document).ready(function() {
 
             var x = 0;
             var sliceWidth = WIDTH * 1.0 / bufferLength;
-            // start the drawing at y = 0
-            // find first 0
+            // start the drawing at bottom of graph
+            // find first HEIGHT (cuz canvas has 0 at the top)
+	/*
             var firstZ = 0;
             for (var i = 0; i < bufferLength; i++) {
-                if (dataArray[i] == WIDTH) { 
+                if (dataArray[i] == 100) { 
                     firstZ = i;
                     console.log("firstZ: " + firstZ);
                     break;
@@ -75,6 +79,7 @@ $(document).ready(function() {
             for (i = 0; i < bufferLength; i++) {
                 dataArray[i] = dataArray[i+firstZ];
             }
+*/
             for(i = 0; i < bufferLength; i++) {
 
               var v = dataArray[i] / 128.0;
