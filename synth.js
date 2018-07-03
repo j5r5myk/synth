@@ -39,7 +39,7 @@ $(document).ready(function() {
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
         console.log("WIDTH: " + WIDTH);
-	console.log("HEIGHT: " + HEIGHT);
+	    console.log("HEIGHT: " + HEIGHT);
         analyser.fftSize = 512;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
