@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     document.getElementById("start").addEventListener("click", start);
     document.getElementById("stop").addEventListener("click", stop);
-//    document.getElementById("lowpass").addEventListener("click", lowpass);
+	// document.getElementById("lowpass").addEventListener("click", lowpass);
 
     var analyser = context.createAnalyser();
     var canvas = document.querySelector('#visualizer');
@@ -30,16 +30,19 @@ $(document).ready(function() {
         
         //carrier.osc.connect(analyser);
         vCar.osc.connect(analyser);
-        visualize();
+        //visualize();
     }
 
     // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
+	function drawCanvas() {
+		
+	}
     function visualize() {
         console.log("Enter visualize");
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
         console.log("WIDTH: " + WIDTH);
-        analyser.fftSize = 512;
+        analyser.fftSize = 256;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
         var dataArray = new Uint8Array(bufferLength);
@@ -51,7 +54,8 @@ $(document).ready(function() {
             drawVisual = requestAnimationFrame(draw);
             analyser.getByteTimeDomainData(dataArray);
 
-            canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+            //canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+			canvasCtx.fillStyle = 'rgb(256, 256, 256)';
             canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
             canvasCtx.lineWidth = 2;
@@ -115,7 +119,7 @@ $(document).ready(function() {
 
     function start() {
         car.gain.gain.value = 1;
-        //visualize();
+        visualize();
     }
 
     function stop() {
