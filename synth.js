@@ -61,20 +61,7 @@ $(document).ready(function() {
 
             var x = 0;
             var sliceWidth = WIDTH * 1.0 / bufferLength;
-            // start the drawing at y = 0
-            // find first 0
-            var firstZ = 0;
-            for (var i = 0; i < bufferLength; i++) {
-                if (dataArray[i] == WIDTH) { 
-                    firstZ = i;
-                    console.log("firstZ: " + firstZ);
-                    break;
-                }
-            }
-            // move array to start with 0
-            for (i = 0; i < bufferLength; i++) {
-                dataArray[i] = dataArray[i+firstZ];
-            }
+            
             for(i = 0; i < bufferLength; i++) {
 
               var v = dataArray[i] / 128.0;
