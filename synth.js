@@ -42,13 +42,13 @@ $(document).ready(function() {
         analyser.fftSize = 512;
         var bufferLength = analyser.fftSize;
         console.log(bufferLength);
-        var dataArray = new Uint8Array(2*bufferLength);
+        var dataArray = new Uint8Array(bufferLength);
       
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
         
         var draw = function() {
             console.log("Enter draw");
-            //drawVisual = requestAnimationFrame(draw);
+            drawVisual = requestAnimationFrame(draw);
             analyser.getByteTimeDomainData(dataArray);
 
             canvasCtx.fillStyle = 'rgb(200, 200, 200)';
@@ -115,13 +115,13 @@ $(document).ready(function() {
 
     function start() {
         car.gain.gain.value = 1;
-        visualize();
+        //visualize();
     }
 
     function stop() {
         car.gain.gain.value = 0;
         vCar.gain.gain.value = 0;
-        visualize();
+        //visualize();
     }
 
     function lowpass() {
@@ -142,7 +142,7 @@ $(document).ready(function() {
     changewave = function(element) {
         var wave = element.value;
         oscillator.type=wave;
-        visualizer();
+        //visualizer();
     }
 
     changepitch = function(element) {
@@ -160,13 +160,13 @@ $(document).ready(function() {
         var modulatorFreq = element.value;
         mod.osc.frequency.value=modulatorFreq;
         vMod.osc.frequency.value=modulatorFreq;
-        visualize();
+        //visualize();
     }
     changeFMGain = function(element) {
         var FMGain = element.value;
         mod.gain.gain.value=FMGain;
         vMod.gain.gain.value=FMGain;
-        visualize();
+        //visualize();
     }
 
     changefilterfreq = function(element) {
