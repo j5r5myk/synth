@@ -13,6 +13,7 @@ $(document).ready(function() {
     var analyser = context.createAnalyser();
     var canvas = document.querySelector('#visualizer');
     var canvasCtx = canvas.getContext("2d");
+    var stop = false;
     init();
 
     function init() {
@@ -34,9 +35,6 @@ $(document).ready(function() {
     }
 
     // thank you https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
-	function drawCanvas() {
-		
-	}
     function visualize() {
         console.log("Enter visualize");
         WIDTH = canvas.width;
@@ -51,6 +49,11 @@ $(document).ready(function() {
         
         var draw = function() {
             console.log("Enter draw");
+            // stop animating
+            if (stop) {
+	            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);	
+                return;
+            }
             drawVisual = requestAnimationFrame(draw);
             analyser.getByteTimeDomainData(dataArray);
 
@@ -120,11 +123,13 @@ $(document).ready(function() {
     function start() {
         car.gain.gain.value = 1;
         visualize();
+        stop = false;
     }
 
     function stop() {
         car.gain.gain.value = 0;
         vCar.gain.gain.value = 0;
+        stop = true;
         //visualize();
     }
 
