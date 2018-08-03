@@ -147,7 +147,7 @@ $(document).ready(function() {
         var volume = element.value;
         var fraction = parseInt(element.value) / parseInt(element.max);
         // x^2 curve
-        gainNode.gain.value = fraction * fraction;
+        car.gain.gain.value = fraction * fraction;
     };
 
     changewave = function(element) {
