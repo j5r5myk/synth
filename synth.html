@@ -5,11 +5,13 @@
 <html>
 <head>
     <title>Synth</title>
+	<link rel="stylesheet" type="text/css" href="synth.css">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
     <script src="synth.js"></script>
 </head>
 
 <body>
+<div id="container">
 <p style="font-family: sans-serif; font-size: 40pt">This is FM synthesis</p>
 <button id="start">play</button>
 <button id="stop">stop</button>
@@ -28,7 +30,8 @@ FM amount: <input type="range" min="0" max="2000" value="300" oninput="changeFMG
 <!--filter frequency: <input type="range" min="0" max="2000" value="2090" oninput="changefilterfreq(this);" />
 filter resonance: <input type="range" min="0" max="200" value="0" oninput="changeFilterRes(this);" />
 -->
-<canvas id="visualizer" width="500" height="300"></canvas>
+</div>
+<canvas id="visualizer"></canvas>
 
 
 </body>

@@ -13,6 +13,8 @@ $(document).ready(function() {
     var analyser = context.createAnalyser();
     var canvas = document.querySelector('#visualizer');
     var canvasCtx = canvas.getContext("2d");
+	canvas.width = canvas.getBoundingClientRect().width;
+	canvas.height = canvas.getBoundingClientRect().height;
     var stop = false;
     init();
 
@@ -61,7 +63,7 @@ $(document).ready(function() {
 			canvasCtx.fillStyle = 'rgb(256, 256, 256)';
             canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-            canvasCtx.lineWidth = 2;
+            canvasCtx.lineWidth = 5;
             canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
 
             canvasCtx.beginPath();
