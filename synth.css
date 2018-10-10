@@ -1,3 +1,20 @@
+body {
+	font-family: sans-serif;
+	font-size: 3em;
+}
+
+#header {
+	font-size: 40pt;
+	border: .1em black solid;
+	display: inline-block;
+	padding: 0;
+}
+
+#blurb {
+	font-size: .5em;
+	width: 33%;
+}
+
 #visualizer {
 	z-index: -1;
 	width: 100%;
@@ -9,4 +26,43 @@
 
 #container {
 	z-index: 1;
+}
+
+.button {
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: .5em;
+}
+
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height: 25px; /* Specified height */
+    /*background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #4CAF50; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #01010101; /* Green background */
+    cursor: pointer; /* Cursor on hover */
 }

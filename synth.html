@@ -12,20 +12,22 @@
 
 <body>
 <div id="container">
-<p style="font-family: sans-serif; font-size: 40pt">This is FM synthesis</p>
-<button id="start">play</button>
-<button id="stop">stop</button>
-<!--<button id="lowpass">lowpass</button>-->
+<h1 id="header">This is FM synthesis</h1>
+
+<div id="blurb"> The timbre of a simple waveform is changed with a modulator frequency, so that a more complex timbre results.</div>
+<p></p>
+<button id="start" class="button">play</button>
+<button id="stop" class="button">stop</button>
 
 
 <p></p>
-volume: <input type="range" min="0" max="100" value="100" oninput="changevolume(this);" />
+volume: <input class="slider" type="range" min="0" max="100" value="100" oninput="changevolume(this);" />
 <p></p>
-carrier frequency: <input type="range" min="0" max="2000" value="440" oninput="changecarrier(this);" />
+carrier frequency: <input class="slider" type="range" min="0" max="2000" value="440" oninput="changecarrier(this);" />
 <p></p>
-modulator frequency: <input type="range" min="0" max="2000" value="964" oninput="changemodulator(this);" />
+modulator frequency: <input class="slider" type="range" min="0" max="2000" value="964" oninput="changemodulator(this);" />
 <p></p>
-FM amount: <input type="range" min="0" max="2000" value="300" oninput="changeFMGain(this);" />
+FM amount: <input class="slider" type="range" min="0" max="2000" value="300" oninput="changeFMGain(this);" />
 <p></p>
 <!--filter frequency: <input type="range" min="0" max="2000" value="2090" oninput="changefilterfreq(this);" />
 filter resonance: <input type="range" min="0" max="200" value="0" oninput="changeFilterRes(this);" />
